@@ -1,0 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fadi <iel-fadi@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/19 18:30:33 by iel-fadi          #+#    #+#             */
+/*   Updated: 2025/12/19 18:52:28 by iel-fadi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+static char	*fill_buffer(int fd, char *left, char *buffer)
+{
+	ssize_t	i;
+	char	*tmp;
+
+	i = 1;
+	while ((!left || !ft_strchr(left, '\n')) && i > 0)
+	{
+		i = read(fd, buffer, BUFFER_SIZE);
+		if (i == -1)
+		{
+			free(left);
+			return (NULL);
+		}
+		if (i == 0)
+			break;
+		buffer[i] = '\0';
+		if (!left)
+			left = ft_strdup(buffer);
+		else
+		{
+			tmp = ft_strjoin(left, buffer);
+			free(left);
+			left = tmp;
+		}
+	}
+	return (left);
+}
+
+static char	*set_line(char *line_buffer)
+{
+	char	*new_line;
+	int		i;
+	
+	i = 0;
+	if (!line_buffer)
+		return (NULL);
+	while (line_buffer[i])
+	{
+		if (line_buffer[i] == '\n')
+		{
+			new_line = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - (i
+						+ 1));
+			line_buffer[i + 1] = '\0';
+			return (new_line);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*backup[1024];
+	char		*buffer;
+	char		*line;
+
+    if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	line = fill_buffer(fd, backup[fd], buffer);
+	free(buffer);
+	buffer = NULL;
+    if (!line || line[0] == '\0')
+    {
+        backup[fd] = NULL;
+		if (line)
+			free(line);
+        return(NULL);
+    }
+	backup[fd] = set_line(line);
+	return (line);
+}
