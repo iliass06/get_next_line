@@ -6,7 +6,7 @@
 /*   By: iel-fadi <iel-fadi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:23:37 by iel-fadi          #+#    #+#             */
-/*   Updated: 2025/12/16 13:06:06 by iel-fadi         ###   ########.fr       */
+/*   Updated: 2025/12/19 16:50:23 by iel-fadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char *str;
+	char	*str;
 
 	str = (char *)s;
-	while (str)
+	while (*str)
 	{
 		if (*str == (char)c)
 			return (str);
