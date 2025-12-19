@@ -6,57 +6,60 @@
 /*   By: iel-fadi <iel-fadi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 13:23:37 by iel-fadi          #+#    #+#             */
-/*   Updated: 2025/12/08 01:26:29 by iel-fadi         ###   ########.fr       */
+/*   Updated: 2025/12/16 13:06:06 by iel-fadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"get_next_line.h"
+#include "get_next_line.h"
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-    while (s)
-    {
-        if (*s == (char)c)
-            return (s);
-        s++;
-    }
-    if ((char)c == '\0')
-        return ((char *)s);
-    return (NULL);
+	char *str;
+
+	str = (char *)s;
+	while (str)
+	{
+		if (*str == (char)c)
+			return (str);
+		str++;
+	}
+	if ((char)c == '\0')
+		return (str);
+	return (NULL);
 }
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-    size_t  i;
+	size_t	i;
 
-    i = 0;
-    while (s[i])
-    {
-        i++;
-    }
-    return (i);
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
 }
 
-char *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-    char *dup;
-    int len;
-    int i;
+	char	*dup;
+	int		len;
+	int		i;
 
-    if (!s)
-        return (NULL);
-    i = 0;
-    len = ft_strlen(s);
-    dup = malloc((len + 1) * sizeof(char));
-    if (!dup)
-        return (NULL);
-    while (s[i])
-    {
-        dup[i] = s[i];
-        i++;
-    }
-    dup[i] = '\0';
-    return (dup);
+	if (!s)
+		return (NULL);
+	i = 0;
+	len = ft_strlen(s);
+	dup = malloc((len + 1) * sizeof(char));
+	if (!dup)
+		return (NULL);
+	while (s[i])
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
