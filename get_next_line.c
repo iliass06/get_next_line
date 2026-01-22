@@ -53,8 +53,7 @@ static char	*set_line(char *line_buffer)
 	{
 		if (line_buffer[i] == '\n')
 		{
-			new_line = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - (i
-						+ 1));
+			new_line = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - (i + 1));
 			line_buffer[i + 1] = '\0';
 			return (new_line);
 		}

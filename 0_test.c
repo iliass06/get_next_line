@@ -1,24 +1,20 @@
-
 #include "get_next_line.h"
+#include<stdio.h>
 #include <fcntl.h>
-#include <stdio.h>
+#include<string.h>
 
-int	main(void)
+int main()
 {
 	int fd;
+	// char *line;
 
-	// 1. On prepare le fichier
 	fd = open("test.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
-	write(fd, "1\n234", 5);
+	if (fd == -1)
+		return (1);
+	write(fd, "A", 4);
 	close(fd);
 
-	// 2. On le rouvre pour lire depuis le DEBUT
-	fd = open("test.txt", O_RDONLY);
-
+	fd = open("test.txt", O_RDWR);
 	printf("%s", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	close(fd);
 	return (0);
 }
